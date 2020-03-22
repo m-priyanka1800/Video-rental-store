@@ -46,40 +46,41 @@
                     {
                         data: "id",
                         render: function (data) {
-                            return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete </button>"
+                            return "<button class='js-delete btn-link' data-customer-id=" + data + ">Delete </button>"
                         }
                     }
                 ]
             });
-            $("#customers .js-delete").on("click", function () {
-                
+            
+            $("#customers").on("click",".js-delete", function () {
+                alert("ok");
                 var button = $(this);
-                if (confirm("Are you sure you want to delete this customer?")) {
+                //if (confirm("Are you sure you want to delete this customer?")) {
 
-                    $.ajax(
-                        {
-                            url: "/api/customers/" + button.attr("data-customer-id"),
-                            method: "DELETE",
-                            success: function () {
-                                console.log("Success");
-                                button.parents("tr").remove();
-                            }
-                        });
-                }
+                //    $.ajax(
+                //        {
+                //            url: "/api/customers/" + button.attr("data-customer-id"),
+                //            method: "DELETE",
+                //            success: function () {
+                //                console.log("Success");
+                //                button.parents("tr").remove();
+                //            }
+                //        });
+                //}
 
-                //bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
-                //    if (result) { 
-                //        $.ajax(
-                //            {
-                //                url: "/api/customers/" + button.attr("data-customer-id"),
-                //                method: "DELETE",
-                //                success: function () {
-                //                    console.log("Success");
-                //                    button.parents("tr").remove();
-                //                }
-                //            });
-                //    }
-                //});
+                bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
+                    if (result) { 
+                        $.ajax(
+                            {
+                                url: "/api/customers/" + button.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    console.log("Success");
+                                    button.parents("tr").remove();
+                                }
+                            });
+                    }
+                });
             });
         });
     </script>
