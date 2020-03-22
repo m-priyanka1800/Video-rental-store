@@ -1,0 +1,39 @@
+﻿
+@model Vidly.Models.ViewModels.MovieViewModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+@using(Html.BeginForm("Save", "Movies"))
+{
+    @Html.ValidationSummary(true,"Please correct the following errors")
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ReleaseDate)
+        @Html.TextBoxFor(m => m.ReleaseDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.ReleaseDate.ToString("yyyy-MM-dd") })
+        @Html.ValidationMessageFor(m => m.ReleaseDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GenreID)
+        @Html.DropDownListFor(m => m.GenreID,new SelectList(Model.movie_Genre, "ID", "Name"), "Select genre", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.GenreID)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Num_in_Stock)
+        @Html.TextBoxFor(m => m.Num_in_Stock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Num_in_Stock)
+    </div>
+
+@Html.HiddenFor(m => m.ID)
+@Html.AntiForgeryToken()
+<button class="btn btn-primary">Submit</button>
+}
+
