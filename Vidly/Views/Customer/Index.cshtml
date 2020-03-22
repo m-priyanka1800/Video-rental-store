@@ -27,8 +27,8 @@
 {
     <script>
         $(document).ready(function () {
-            
-            $('#customers').DataTable({
+
+            var table = $('#customers').DataTable({
                 ajax: {
                     url: "/api/customers",
                     dataSrc: ""
@@ -51,10 +51,11 @@
                     }
                 ]
             });
-            
-            $("#customers").on("click",".js-delete", function () {
-                alert("ok");
+
+            $("#customers").on("click", ".js-delete", function () {
+
                 var button = $(this);
+                ////Ajax for normal confirm
                 //if (confirm("Are you sure you want to delete this customer?")) {
 
                 //    $.ajax(
@@ -69,14 +70,14 @@
                 //}
 
                 bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
-                    if (result) { 
+                    if (result) {
                         $.ajax(
                             {
                                 url: "/api/customers/" + button.attr("data-customer-id"),
                                 method: "DELETE",
                                 success: function () {
                                     console.log("Success");
-                                    button.parents("tr").remove();
+                                    table.row(button.parents("tr")).remove().draw();
                                 }
                             });
                     }
